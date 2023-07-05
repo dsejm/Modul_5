@@ -4,7 +4,7 @@ class Model:
     text = input("Введите текст сообщения: ")
     author = input("Введите автора сообщения: ")
     def _save(self):
-        with open(f"model_attributes_{self.author}.json", "w") as file:
+        with open(f"model_attributes_{self.author}.json", "w", encoding="utf-8") as file:
             list_atr = list(filter(lambda x: not x.startswith('_'), dir(Model)))
             list_atr = list_atr[::-1]
             list_value = []
@@ -12,8 +12,7 @@ class Model:
                 value = getattr(Model, f"{i}")
                 list_value.append(value)
             data = dict(zip(list_atr, list_value))
-            print(data)
-            json.dump(data, file)
+            json.dump(data, file, ensure_ascii=False)
             print("Data save!")
 
 state = Model()
